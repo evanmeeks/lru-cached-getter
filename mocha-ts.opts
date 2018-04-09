@@ -1,0 +1,6 @@
+--require source-map-support/register
+--require chai
+--require ts-node/register
+--recursive
+--watch-extensions ts,tsx
+dev/test/**/*.{ts,tsx}
