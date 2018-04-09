@@ -16,7 +16,7 @@ script:
 before_deploy:
     - mkdir -p public
     - yarn typedoc
-      cp -r typedoc/* public/
+    - cp -r typedoc/* public/
     - cp -r coverage public/
 
 deploy:
