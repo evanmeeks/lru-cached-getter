@@ -1,5 +1,5 @@
 {
-    "name": "@kwiwk/lru-cache-getter",
+    "name": "@kwiwk/lru-cached-getter",
     "version": "1.0.0",
     "description": "LRU Cached asynchronous data getter.",
     "main": "./dist/src/index.js",
@@ -8,7 +8,6 @@
         "setup": "yarn install",
         "build": "tsc",
         "build-watch": "tsc --watch",
-        "build-dist": "tsc --project ./tsconfig.dist.json",
         "clean": "shx rm -rf dist/ coverage/ .nyc_output/",
         "clean-dist": "shx rm -rf dist/",
         "clean-all": "shx rm -rf dist/ coverage/ .nyc_output/ node_modules/",
@@ -17,20 +16,20 @@
         "test-watch": "mocha --opts ./mocha-ts.opts --watch",
         "coverage": "nyc yarn test",
         "coverage-dev": "run-s build coverage",
-        "prepublishOnly": "run-s clean-dist build-dist",
-        "typedoc": "typedoc --excludePrivate --out ./public --mode file --tsconfig ./tsconfig.json ./dev/src",
+        "prepublishOnly": "run-s clean-dist build",
+        "typedoc": "typedoc --excludePrivate --out ./typedoc --mode file --tsconfig ./tsconfig.json ./dev/src",
         "prettier": "prettier --write {.,dev/**}/*.{json,ts,tsx}"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/russleyshaw/lru-cache-getter.git"
+        "url": "git+https://github.com/russleyshaw/lru-cached-getter.git"
     },
     "author": "Russley Shaw",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/russleyshaw/lru-cache-getter/issues"
+        "url": "https://github.com/russleyshaw/lru-cached-getter/issues"
     },
-    "homepage": "https://github.com/russleyshaw/lru-cache-getter#readme",
+    "homepage": "https://github.com/russleyshaw/lru-cached-getter#readme",
     "devDependencies": {
         "@types/chai": "^4.1.2",
         "@types/mocha": "^5.0.0",
@@ -56,5 +55,9 @@
     },
     "dependencies": {
         "@types/node": "^9.6.2"
-    }
+    },
+    "files": [
+        "yarn.lock",
+        "dist/src/"
+    ]
 }

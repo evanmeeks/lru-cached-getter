@@ -1,11 +1,14 @@
 import { expect } from "chai";
 
-import { delayMs, benchmarkMs } from "./util";
+import { delayMs, benchmarkMs, expectCloseTo } from "./util";
 import { LRUCachedGetter } from "../src";
+
+const MS_TOL = 10;
 
 describe("LRUCacheGetter", function() {
     it("shall be constructable", () => {
         const lru = createTestLRU();
+        expect(lru).to.exist;
     });
 
     it("shall retrieve cached values", async () => {
@@ -15,14 +18,31 @@ describe("LRUCacheGetter", function() {
             const v = await lru.get(500);
             expect(v).equals("Test: 500");
         });
-        expect(ms).within(490, 510);
+        expectCloseTo(ms, 500, MS_TOL);
 
         ms = await benchmarkMs(async () => {
             const v = await lru.get(500);
             expect(v).equals("Test: 500");
         });
+        expectCloseTo(ms, 0, MS_TOL);
+    });
 
-        expect(ms).within(0, 50);
+    it("shall refresh when provided a forceRefresh flag", async() => {
+        const lru = createTestLRU();
+
+        let ms = await benchmarkMs(async() => {
+            const v = await lru.get(50);
+            expect(v).equals("Test: 50");
+        });
+        expectCloseTo(ms, 50, MS_TOL);
+
+        ms = await benchmarkMs(async() => {
+            const v = await lru.get(50, true);
+            expect(v).equals("Test: 50");
+        });
+        expectCloseTo(ms, 50, MS_TOL);
+
+
     });
 
     it("shall dispose of the least recently used value", async () => {
@@ -32,13 +52,13 @@ describe("LRUCacheGetter", function() {
             const v = await lru.get(100);
             expect(v).equals("Test: 100");
         });
-        expect(ms).within(90, 110);
+        expectCloseTo(ms, 100, MS_TOL);
 
         ms = await benchmarkMs(async () => {
             const v = await lru.get(100);
             expect(v).equals("Test: 100");
         });
-        expect(ms).within(0, 10);
+        expect(ms).within(0, MS_TOL);
 
         for (let i = 0; i < 10; i++) {
             await lru.get(i);
@@ -48,7 +68,7 @@ describe("LRUCacheGetter", function() {
             const v = await lru.get(100);
             expect(v).equals("Test: 100");
         });
-        expect(ms).within(90, 110);
+        expectCloseTo(ms, 100, MS_TOL);
     });
 });
 
