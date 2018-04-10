@@ -1,13 +1,13 @@
-# [@kwiwk/lru-cached-getter](https://github.com/kwiwk/lru-cached-getter)
-
-![Kwiwk Logo](https://raw.githubusercontent.com/kwiwk/kwiwk.github.io/master/logo.svg)
+# [lru-cached-getter](https://github.com/kwiwk/lru-cached-getter)
 
 A cache for asychnronous data.
+
 
 [![Travis](https://img.shields.io/travis/kwiwk/lru-cached-getter.svg?style=flat-square)](https://travis-ci.org/kwiwk/lru-cached-getter)
 [![npm](https://img.shields.io/npm/v/@kwiwk/lru-cached-getter.svg?style=flat-square)](https://www.npmjs.com/package/@kwiwk/lru-cached-getter)
 [![npm](https://img.shields.io/npm/dt/@kwiwk/lru-cached-getter.svg)](https://www.npmjs.com/package/@kwiwk/lru-cached-getter)
 
+![Kwiwk Logo](https://github.com/kwiwk/kwiwk.github.io/raw/master/logo64.png)
 
 ## Table Of Contents
 - [Description](#description)
