@@ -1,6 +1,6 @@
 {
     "name": "@kwiwk/lru-cached-getter",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "LRU Cached asynchronous data getter.",
     "main": "./dist/src/index.js",
     "types": "./dist/src/index.d.ts",
@@ -50,11 +50,19 @@
         "tabWidth": 4
     },
     "nyc": {
-        "exclude": ["./dist/test"],
-        "reporter": ["html", "text"]
+        "exclude": [
+            "./dist/test"
+        ],
+        "reporter": [
+            "html",
+            "text"
+        ]
     },
     "dependencies": {
         "@types/node": "^9.6.2"
     },
-    "files": ["yarn.lock", "dist/src/"]
+    "files": [
+        "yarn.lock",
+        "dist/src/"
+    ]
 }
