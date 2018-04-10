@@ -11,6 +11,9 @@ export interface CacheEntry<TVal> {
     value: TVal;
 }
 
+/**
+ * LRU cache for data retrieved asynchronously
+ */
 export class LRUCachedGetter<TArg, TVal> {
     private getter: (arg: TArg) => Promise<TVal>;
     private hasher: (arg: TArg) => string;
@@ -18,7 +21,10 @@ export class LRUCachedGetter<TArg, TVal> {
 
     private maxSize: number;
     private expiresMs: number;
-
+    
+    /**
+     * Create a new LRUCachedGetter
+     */
     constructor(args: ConstructorArgs<TArg, TVal>) {
         this.getter = args.getter;
         this.hasher = args.hasher;
