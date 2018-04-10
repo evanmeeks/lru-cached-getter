@@ -1,5 +1,7 @@
 # [@kwiwk/lru-cached-getter](https://github.com/kwiwk/lru-cached-getter)
 
+![Kwiwk Logo](https://raw.githubusercontent.com/kwiwk/kwiwk.github.io/master/logo.svg)
+
 A cache for asychnronous data.
 
 [![Travis](https://img.shields.io/travis/kwiwk/lru-cached-getter.svg?style=flat-square)](https://travis-ci.org/kwiwk/lru-cached-getter)
@@ -9,14 +11,23 @@ A cache for asychnronous data.
 
 ## Table Of Contents
 - [Description](#description)
+- [Documentation](#documentation)
+- [License](#license)
+- [Changelog](#changelog)
 
 ## Description
 
-The `LRUCachedGetter` is a way to cache asynchronous data 
+LRUCachedGetter will cache results retrieved through its getter function for faster access on subsequent calls. 
+
+Features:
+- Configurable expiration time
+- Configurable LRU cache size
+- Force updating
 
 ## Documentation
 
 ```typescript
+import { LRUCachedGetter } from "@kwiwk/lru-cached-getter";
 
 async function getPersonById(id: number): Promise<Person> { 
     // Get get a person by their ID asynchronously
@@ -26,11 +37,19 @@ async function personIdToString(id: number): string {
     return id.toString();
 }
 
+// Create a new LRU cache
 const lru = new LRUCachedGetter({
-    getter: getPersonById, // A getter is a function that retrieves the value asynchronously
-    hasher: personIdToString, // A hasher creates a unique string from the argument to represent the request.
-    maxSize: 10, // Maximum size of LRU cache (defaults to 1000).
-    expiresMs: 1000 * 60 * 60 * 24 // Milliseconds until the cached entry expires (defaults to Infinity).
+    // A getter is a function that retrieves the value asynchronously
+    getter: getPersonById, 
+
+    // A hasher creates a unique string from the argument to represent the request.
+    hasher: personIdToString, 
+
+    // Maximum size of LRU cache (defaults to 1000).
+    maxSize: 10,
+
+    // Milliseconds until the cached entry expires (defaults to Infinity).
+    expiresMs: 1000 * 60 * 60 * 24
 });
 
 // Request a person. Result is requested through the getter.
@@ -38,8 +57,11 @@ let person = await lru.get(1);
 
 // ...
 
-// Request a person. Result was previously cached and returned immediately.
+// Result was previously cached and returned immediately.
 person = await lru.get(1);
+
+// Force the value to be retrieved through the getter.
+person = await lru.get(1, true);
 
 ```
 
