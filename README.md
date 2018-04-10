@@ -11,6 +11,7 @@ A cache for asychnronous data.
 
 ## Table Of Contents
 - [Description](#description)
+- [Getting Started](#getting-started)
 - [Documentation](#documentation)
 - [License](#license)
 - [Changelog](#changelog)
@@ -20,9 +21,14 @@ A cache for asychnronous data.
 LRUCachedGetter will cache results retrieved through its getter function for faster access on subsequent calls. 
 
 Features:
+- First class TypeScript support!
 - Configurable expiration time
 - Configurable LRU cache size
 - Force updating
+
+## Getting Started
+
+- Install Node v8 LTS [here](https://nodejs.org/en/download/).
 
 ## Documentation
 
