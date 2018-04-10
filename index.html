@@ -65,6 +65,7 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h1 id="-kwiwk-lru-cached-getter"><a href="https://github.com/kwiwk/lru-cached-getter">@kwiwk/lru-cached-getter</a></h1>
+				<p><img src="https://raw.githubusercontent.com/kwiwk/kwiwk.github.io/master/logo.svg" alt="Kwiwk Logo"></p>
 				<p>A cache for asychnronous data.</p>
 				<p><a href="https://travis-ci.org/kwiwk/lru-cached-getter"><img src="https://img.shields.io/travis/kwiwk/lru-cached-getter.svg?style=flat-square" alt="Travis"></a>
 					<a href="https://www.npmjs.com/package/@kwiwk/lru-cached-getter"><img src="https://img.shields.io/npm/v/@kwiwk/lru-cached-getter.svg?style=flat-square" alt="npm"></a>
@@ -72,11 +73,21 @@
 				<h2 id="table-of-contents">Table Of Contents</h2>
 				<ul>
 					<li><a href="#description">Description</a></li>
+					<li><a href="#documentation">Documentation</a></li>
+					<li><a href="#license">License</a></li>
+					<li><a href="#changelog">Changelog</a></li>
 				</ul>
 				<h2 id="description">Description</h2>
-				<p>The <code>LRUCachedGetter</code> is a way to cache asynchronous data </p>
+				<p>LRUCachedGetter will cache results retrieved through its getter function for faster access on subsequent calls. </p>
+				<p>Features:</p>
+				<ul>
+					<li>Configurable expiration time</li>
+					<li>Configurable LRU cache size</li>
+					<li>Force updating</li>
+				</ul>
 				<h2 id="documentation">Documentation</h2>
-				<pre><code class="lang-typescript">
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { LRUCachedGetter } <span class="hljs-keyword">from</span> <span class="hljs-string">"@kwiwk/lru-cached-getter"</span>;
+
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPersonById</span>(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">Person</span>&gt; </span>{ 
     <span class="hljs-comment">// Get get a person by their ID asynchronously</span>
 }
@@ -85,11 +96,19 @@
     <span class="hljs-keyword">return</span> id.toString();
 }
 
+<span class="hljs-comment">// Create a new LRU cache</span>
 <span class="hljs-keyword">const</span> lru = <span class="hljs-keyword">new</span> LRUCachedGetter({
-    getter: getPersonById, <span class="hljs-comment">// A getter is a function that retrieves the value asynchronously</span>
-    hasher: personIdToString, <span class="hljs-comment">// A hasher creates a unique string from the argument to represent the request.</span>
-    maxSize: <span class="hljs-number">10</span>, <span class="hljs-comment">// Maximum size of LRU cache (defaults to 1000).</span>
-    expiresMs: <span class="hljs-number">1000</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span> <span class="hljs-comment">// Milliseconds until the cached entry expires (defaults to Infinity).</span>
+    <span class="hljs-comment">// A getter is a function that retrieves the value asynchronously</span>
+    getter: getPersonById, 
+
+    <span class="hljs-comment">// A hasher creates a unique string from the argument to represent the request.</span>
+    hasher: personIdToString, 
+
+    <span class="hljs-comment">// Maximum size of LRU cache (defaults to 1000).</span>
+    maxSize: <span class="hljs-number">10</span>,
+
+    <span class="hljs-comment">// Milliseconds until the cached entry expires (defaults to Infinity).</span>
+    expiresMs: <span class="hljs-number">1000</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span>
 });
 
 <span class="hljs-comment">// Request a person. Result is requested through the getter.</span>
@@ -97,8 +116,11 @@
 
 <span class="hljs-comment">// ...</span>
 
-<span class="hljs-comment">// Request a person. Result was previously cached and returned immediately.</span>
+<span class="hljs-comment">// Result was previously cached and returned immediately.</span>
 person = <span class="hljs-keyword">await</span> lru.get(<span class="hljs-number">1</span>);
+
+<span class="hljs-comment">// Force the value to be retrieved through the getter.</span>
+person = <span class="hljs-keyword">await</span> lru.get(<span class="hljs-number">1</span>, <span class="hljs-literal">true</span>);
 
 </code></pre>
 				<p>View the API docs <a href="https://kwiwk.github.io/lru-cached-getter">here</a>.</p>
