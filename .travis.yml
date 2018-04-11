@@ -30,6 +30,7 @@ deploy:
     verbose: true
     on:
         branch: master
+        node: "lts/*"
 
 after_deploy:
     - yarn coveralls
